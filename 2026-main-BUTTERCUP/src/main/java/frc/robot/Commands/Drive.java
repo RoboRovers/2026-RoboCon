@@ -9,7 +9,6 @@ import frc.robot.Subsystems.Drive.Swerve;
 
 
 public class Drive extends Command{
-
     public final Swerve s_Swerve;
     public final CommandJoystick left, right;
 
@@ -20,9 +19,7 @@ public class Drive extends Command{
 
     public static final double DEADBAND = 0.075;
 
-    // public DriveCommand(s_Swerve s_Swerve, CommandXboxController opController, CommandJoystick leftStick, CommandJoystick rightStick) {
     public Drive(Swerve s_Swerve, CommandJoystick left, CommandJoystick right) {
-
         this.s_Swerve = s_Swerve;
         this.xLimiter = new SlewRateLimiter(Constants_Drive.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SEC);
         this.yLimiter = new SlewRateLimiter(Constants_Drive.TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SEC);
@@ -54,15 +51,15 @@ public class Drive extends Command{
         turningSpeed = turningLimiter.calculate(turningSpeed) * Constants_Drive.TELEDRIVE_MAX_ANGULAR_SPEED_RPS;
 
         drive();
-
     }
     
     public void drive()
     {
-        if(driveFieldOriented)
+        if (driveFieldOriented)
         {
             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(xSpeed, ySpeed, turningSpeed), s_Swerve.getRotation2d());
-        }else
+        }
+        else
         {
             chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
         }
@@ -81,9 +78,9 @@ public class Drive extends Command{
         s_Swerve.setModuleStates(chassisSpeeds);
     }
 
-
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean interrupted) 
+    {
         s_Swerve.stopModules();
     }
 

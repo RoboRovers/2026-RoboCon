@@ -1,11 +1,7 @@
 package frc.robot.Subsystems.Drive;
 
 import java.util.Optional;
-
 import com.studica.frc.AHRS;
-
-// import com.studica.frc.AHRS;
-
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,7 +24,6 @@ public class Swerve extends SubsystemBase{
     public boolean isRedAlliance;
     Optional<Alliance> alliance;
   
-    
     public static Module frontLeftModule = new Module(MAP_DRIVETRAIN.frontLeftAbsEncoder, MAP_DRIVETRAIN.frontLeftDriveKraken, Constants_Drive.FL_DRIVE_ENCODER_REVERSED, Constants_Drive.FL_STEER_ENCODER_REVERSED, MAP_DRIVETRAIN.frontLeftAbsEncoder, Constants_Drive.FL_OFFSET, Constants_Drive.FL_DRIVE_ABSOLUTE_ENCODER_REVERSED);
     public static Module frontRightModule = new Module(MAP_DRIVETRAIN.frontRightAbsEncoder, MAP_DRIVETRAIN.frontRightDriveKraken, Constants_Drive.FR_DRIVE_ENCODER_REVERSED, Constants_Drive.FR_STEER_ENCODER_REVERSED, MAP_DRIVETRAIN.frontRightAbsEncoder, Constants_Drive.FR_OFFSET, Constants_Drive.FR_DRIVE_ABSOLUTE_ENCODER_REVERSED);
     public static Module backLeftModule = new Module(MAP_DRIVETRAIN.backLeftAbsEncoder, MAP_DRIVETRAIN.backLeftDriveKraken, Constants_Drive.BL_DRIVE_ENCODER_REVERSED, Constants_Drive.BL_STEER_ENCODER_REVERSED, MAP_DRIVETRAIN.backLeftAbsEncoder, Constants_Drive.BL_OFFSET, Constants_Drive.BL_DRIVE_ABSOLUTE_ENCODER_REVERSED);
@@ -40,8 +35,8 @@ public class Swerve extends SubsystemBase{
         {
             Thread.sleep(500);
             zeroHeading();
-        } catch (Exception e) {}}).start();    
-        // alliance = getAlliance();
+        } 
+        catch (Exception e) {}}).start();    
     }
         
     //gyro int and heading code
@@ -70,13 +65,12 @@ public class Swerve extends SubsystemBase{
     
     public boolean allianceCheck() 
     {
-        // if (alliance.isPresent() && (alliance.get() == Alliance.Red)) {isRedAlliance = true;}else{isRedAlliance = false;}
-        // return isRedAlliance;
         var alliance = DriverStation.getAlliance();
-              if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
-              }
-              return false;
+        if (alliance.isPresent()) 
+        {
+            return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return false;
     }
 
     //Odometer code
@@ -116,32 +110,34 @@ public class Swerve extends SubsystemBase{
             backRightModule.getModuleState());
     }
 
-    public void setModuleStates(ChassisSpeeds speeds){
+    public void setModuleStates(ChassisSpeeds speeds)
+    {
         SwerveModuleState[] moduleStates = Constants_Drive.kDriveKinematics.toSwerveModuleStates(speeds);
         SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, Constants_Drive.MAX_SPEED_METERS_PER_SEC);
         frontLeftModule.setDesiredState(moduleStates[0]);
         frontRightModule.setDesiredState(moduleStates[1]);
         backLeftModule.setDesiredState(moduleStates[2]);
         backRightModule.setDesiredState(moduleStates[3]);
-        // SmartDashboard.putNumber("FL module desired Degrees", moduleStates[1].angle.getDegrees());
     }
     
     //face forward method. Called once the bot is enabled
-    public void faceAllForward() {
+    public void faceAllForward() 
+    {
         frontLeftModule.wheelFaceForward();
         frontRightModule.wheelFaceForward();
         backLeftModule.wheelFaceForward();
         backRightModule.wheelFaceForward();
-        System.out.println("exacuted faceAll Forward");
+        System.out.println("executed faceAll Forward");
     }
 
     //face right method. Called once the bot is enabled
-    public void faceAllRight() {
+    public void faceAllRight() 
+    {
         frontLeftModule.wheelFaceRight();
         frontRightModule.wheelFaceRight();
         backLeftModule.wheelFaceRight();
         backRightModule.wheelFaceRight();
-        System.out.println("exacuted faceAll Right");
+        System.out.println("executed faceAll Right");
     }
     
     public Command resetWheels(){
@@ -165,7 +161,7 @@ public class Swerve extends SubsystemBase{
     @Override
     public void periodic() {
         odometer.update(getRotation2d(), getModulePositions());
-             
+        
         //Odometer and other gyro values
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
         SmartDashboard.putNumber("Robot Heading", getHeading());

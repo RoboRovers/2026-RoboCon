@@ -1,6 +1,5 @@
 package frc.robot.Subsystems.Drive;
 
-
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
@@ -20,7 +19,6 @@ import com.ctre.phoenix6.swerve.SwerveModuleConstants.ClosedLoopOutputType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
-//import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -44,12 +42,9 @@ import frc.robot.Util.Constants.Constants_Module;
 
 public class Module extends SubsystemBase
 {
-
-
   public TalonFX driveMotor;
   public VelocityVoltage velocityRequest;
   public MotionMagicVelocityVoltage motionMagicRequest;
-  // public TalonFXConfiguration driveConfig = new TalonFXConfiguration();
   public NeutralModeValue neutralModeValue;
   public Slot0Configs driveGains;
   public FeedbackConfigs driveFeedbackConfigs;
@@ -68,11 +63,8 @@ public class Module extends SubsystemBase
   public CANcoderConfiguration CANConfig;
   public boolean absoluteReversed;
 
-
-  
   // Inputs from drive motor
   public StatusSignal<Angle> drivePosition;
-  // public static Queue<Double> drivePositionQueue;
   public StatusSignal<AngularVelocity> driveVelocity;
   public StatusSignal<Voltage> driveAppliedVolts;
   public StatusSignal<Current> driveCurrent;
@@ -80,14 +72,12 @@ public class Module extends SubsystemBase
   // Inputs from turn motor
   public StatusSignal<Angle> steerAbsolutePosition;
   public StatusSignal<Angle> steerPosition;
-  // public static Queue<Double> turnPositionQueue;
   public StatusSignal<AngularVelocity> turnVelocity;
   public StatusSignal<Voltage> turnAppliedVolts;
   public StatusSignal<Current> turnCurrent;
 
   // Voltage control requests
   public VoltageOut voltageRequest = new VoltageOut(0);
-  // private final PositionVoltage positionVoltageRequest = new PositionVoltage(0.0);
   public VelocityVoltage velocityVoltageRequest = new VelocityVoltage(0.0);
 
 
@@ -109,25 +99,24 @@ public class Module extends SubsystemBase
     driveMotor = new TalonFX(driveNum);
     driveGains = new Slot0Configs().withKP(Constants_Module.P_DRIVE).withKI(Constants_Module.I_DRIVE)
     .withKD(Constants_Module.A_DRIVE).withKS(Constants_Module.S_DRIVE).withKV(Constants_Module.V_DRIVE);
+
     // driveGains hold the PID gains (values) for the drive motor
     driveFeedbackConfigs = new FeedbackConfigs().withSensorToMechanismRatio(Constants_Module.driveGearRatio);
     neutralModeValue = NeutralModeValue.Brake;
     driveMotor.getConfigurator().apply(driveGains);
+
     // sets up gains to the drive motor
     driveMotor.getConfigurator().apply(new CurrentLimitsConfigs().withStatorCurrentLimitEnable(false).withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(80));
     driveMotor.getConfigurator().apply(driveFeedbackConfigs, 5);
     driveMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(invertDrive?InvertedValue.Clockwise_Positive:InvertedValue.CounterClockwise_Positive).withNeutralMode(neutralModeValue));
   
-    
-    
     this.absoluteReversed = absoluteReversed;
     CANConfig = new CANcoderConfiguration().withMagnetSensor(new MagnetSensorConfigs().withMagnetOffset(absOffset).withAbsoluteSensorDiscontinuityPoint(0.5));
     
     absoluteEncoder = new CANcoder(absoluteEncoderID, new CANBus());
     absoluteEncoder.getConfigurator().apply(CANConfig);
     
-    steerGains = new SparkMaxConfig()
-    .apply(new ClosedLoopConfig().pidf(Constants.Constants_Module.P_TURNING, Constants.Constants_Module.I_TURNING, 
+    steerGains = new SparkMaxConfig().apply(new ClosedLoopConfig().pidf(Constants.Constants_Module.P_TURNING, Constants.Constants_Module.I_TURNING, 
     Constants.Constants_Module.D_TURNING, Constants.Constants_Module.FF_TURNING, ClosedLoopSlot.kSlot0).positionWrappingEnabled(true).positionWrappingInputRange(-179.9999999, 180));
     steerGains.encoder.positionConversionFactor(Constants.Constants_Module.STEER_TO_DEGREES);
     steerGains.encoder.velocityConversionFactor(Constants.Constants_Module.STEER__RPM_2_DEG_PER_SEC);
@@ -138,7 +127,6 @@ public class Module extends SubsystemBase
     steerMotor = new SparkMax(steerNum, MotorType.kBrushless);
     steerEncoder = steerMotor.getEncoder();
     steerPIDController = steerMotor.getClosedLoopController();
-    //steerMotor.configure(steerGains, com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
     resetEncoders();
   }
@@ -158,7 +146,7 @@ public class Module extends SubsystemBase
 //Drive Methods
   public double getDrivePosition()
   {
-      return driveMotor.getPosition().getValueAsDouble() * Constants_Module.DRIVE_ROT_2_METER;
+    return driveMotor.getPosition().getValueAsDouble() * Constants_Module.DRIVE_ROT_2_METER;
   }
   public double getDriveVelocity()
   {
@@ -169,8 +157,6 @@ public class Module extends SubsystemBase
     double rps = velocityMPS * Constants_Module.DRIVE_MPS_2_RPS;
     driveMotor.setControl(new MotionMagicVelocityVoltage(rps));
   }
-  
-  
   
   //Steer Methods
   public double getPosition()
@@ -191,8 +177,6 @@ public class Module extends SubsystemBase
   {
     return new SwerveModulePosition(getDrivePosition(), getModuleState().angle);
   }
-
-//ben is awesome
       
   //This is our setDesiredState alg. Takes the current state and the desired state shown by the controller and points the wheels to that location
   
@@ -202,7 +186,6 @@ public class Module extends SubsystemBase
     state.optimize(getModulePosition().angle);
     state.cosineScale(getModulePosition().angle);
     driveMotor.set(state.speedMetersPerSecond / Constants.Constants_Drive.MAX_SPEED_METERS_PER_SEC);
-    // getUpToSpeed(state.speedMetersPerSecond);
     steerPIDController.setSetpoint(state.angle.getDegrees(), ControlType.kPosition);
   }
 
@@ -213,7 +196,8 @@ public class Module extends SubsystemBase
     {
       Thread.sleep(10);
       steerPIDController.setSetpoint(0, ControlType.kPosition);
-    } catch (Exception e){}
+    } 
+    catch (Exception e){}
   }
 
   public void wheelFaceRight() 
@@ -223,6 +207,7 @@ public class Module extends SubsystemBase
     {
       Thread.sleep(10);
       steerPIDController.setSetpoint(90, ControlType.kPosition);
-    } catch (Exception e){}
+    } 
+    catch (Exception e){}
   }
 }

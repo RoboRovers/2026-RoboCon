@@ -10,10 +10,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Carpet extends SubsystemBase {
-    // Creating Motor
     private SparkFlex carpetMotor;
   
-    //Default Constructor
     public Carpet() {
        // Config
        SparkFlexConfig carpetConfig = new SparkFlexConfig();
@@ -24,7 +22,6 @@ public class Carpet extends SubsystemBase {
        // Motor
        carpetMotor = new SparkFlex(RobotMap.MAP_SUBSYSTEMS.carpetMotor, SparkFlex.MotorType.kBrushless);
        carpetMotor.configure(carpetConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
     }
 
     public void stop() {
@@ -32,13 +29,13 @@ public class Carpet extends SubsystemBase {
     }
 
     public void setCarpetSpeed() {
-        carpetMotor.set(Constants_Carpet.defaultRollSpeed);
+        carpetMotor.set(Constants_Carpet.carpetSpeed);
     }
 
     public Command freeBalls() {
         return runOnce(() ->
         {
-            carpetMotor.set(-Constants_Carpet.defaultRollSpeed);
+            carpetMotor.set(-Constants_Carpet.carpetSpeed);
         });
     }
 }

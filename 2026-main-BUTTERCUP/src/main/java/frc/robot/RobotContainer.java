@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.Drive.Swerve;
 import frc.robot.Commands.Drive;
 import frc.robot.Util.Controllers;
@@ -20,14 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
   public Controllers u_Controllers;
   public Swerve s_Swerve;
-  public Drive c_Drive;
-  public Climber s_Climb;
-
-  // public Auto c_Auto;
-  
+  public Drive c_Drive;  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -50,20 +44,14 @@ public class RobotContainer {
   private void robotFiles() {
     u_Controllers = new Controllers();
     s_Swerve = new Swerve();
-    s_Climb = new Climber();
     c_Drive = new Drive(s_Swerve, u_Controllers.leftStick, u_Controllers.rightStick);
-    // Make Drive the default command for the swerve subsystem so joystick
-    // inputs are processed continuously while no other command requires s_Swerve.
   }
 
   private void configureBindings() {
     //Drive Bindings
     u_Controllers.FO_toggle.toggleOnTrue(s_Swerve.fieldOrientedToggle());
     u_Controllers.zeroHeading.toggleOnTrue(Commands.runOnce(() -> s_Swerve.zeroHeading()));
-    u_Controllers.resetWheels.onTrue(s_Swerve.resetWheels()); //window looking button
-    u_Controllers.climbUp.onTrue(Commands.runOnce(() -> s_Climb.climbUp()));
-    u_Controllers.climbDown.onTrue(Commands.runOnce(() -> s_Climb.climbDown()));
-    u_Controllers.climbStop.onTrue(Commands.runOnce(() -> s_Climb.stop())); 
+    u_Controllers.resetWheels.onTrue(s_Swerve.resetWheels());
   }
 
   /**
@@ -72,7 +60,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
     return Commands.none();
   }
 }

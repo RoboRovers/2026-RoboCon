@@ -26,7 +26,7 @@ public class Controllers {
     {
         climbUp = xbox.rightBumper();
         climbDown = xbox.leftBumper();
-        climbStop = xbox.button(7); //Get actual button number
+        climbStop = xbox.button(7);
     }   
 
     public void initialize_left_Joystick_Controls() {

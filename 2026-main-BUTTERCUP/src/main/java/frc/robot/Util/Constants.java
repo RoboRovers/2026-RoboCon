@@ -20,12 +20,10 @@ import edu.wpi.first.wpilibj2.command.Command;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
-
-    
+public final class Constants { 
   public static final class Constants_Module {
     public static final double wheelRadiusMeters = 0.05000625; //Inches; 1 31/32; 1.96875 1.96875 to meters = 0.05000625
-    public static final double wheelCircumferenceMeters = 2*Math.PI*wheelRadiusMeters;
+    public static final double wheelCircumferenceMeters = 2  * Math.PI * wheelRadiusMeters;
     public static final double driveGearRatio = 4.59; //4.59 for Swerve X, 6.75 for sds
     public static final double DRIVE_ROT_2_METER = (wheelCircumferenceMeters);
     public static final double DRIVE_MPS_2_RPS = driveGearRatio/wheelCircumferenceMeters;
@@ -48,18 +46,17 @@ public final class Constants {
     public static final double I_DRIVE = 0;
   }
 
-
   public static final class Constants_Drive {
-
     public static final Measure<DistanceUnit> WHEEL_RADIUS = edu.wpi.first.units.Units.Inches.of(1.5);
     public static final double COF = 1.2;
-    //TODO Measure from the center of each wheel to get these, Front to back for "WHEEL_BASE", Left to right for "TRACK_WIDTH"
-    public static final double trackWidth = Units.inchesToMeters(22.9375);  //TODO Update values to what they are for the new robo
-      // Distance between left and right wheels
+
+    // Distance between left and right wheels (center to center)
+    public static final double trackWidth = Units.inchesToMeters(22.9375);
+    // Distance between front and back wheels (center to center)
     public static final double wheelBase = Units.inchesToMeters(22.6875);
-      // Distance between front and back wheels
+
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-      new Translation2d(wheelBase / 2, trackWidth / 2), //front left
+        new Translation2d(wheelBase / 2, trackWidth / 2), //front left
         new Translation2d(wheelBase / 2, -trackWidth / 2), //front right
         new Translation2d(-wheelBase / 2,  trackWidth / 2), //back left
         new Translation2d(-wheelBase / 2, -trackWidth / 2)); //back right
@@ -70,7 +67,6 @@ public final class Constants {
     //TODO Test and input all module offsets which range from -1 -> 1, Make sure to read the TODO in the "MODULE" file for more info on zeroing the motors
     public static final double FL_OFFSET = -0.255859; //0.011230;
     public static final double FR_OFFSET = -0.333740; //0.159424;
-
     public static final double BL_OFFSET = -0.116943; //0.385986;
     public static final double BR_OFFSET = 0.340332; // 0.415527;
 
@@ -99,33 +95,24 @@ public final class Constants {
     public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SEC = MAX_SPEED_METERS_PER_SEC/1.50;
     public static final double TELEDRIVE_MAX_ANGULAR_ACCEL_UNITS_PER_SEC = TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SEC/(trackWidth/2);
   }
-
-  public static final class Constants_Climber
-  {
-    public static final int motorSmartCurrentLimit = 40;  //TODO: Get actual value
-    public static final double climberFactor = 1.0; //TODO: Get actual value
-    public static final double climbSpeed = 0.5; //TODO: Get actual value
-    public static final boolean climbInverted = false;
-    public static final double climbPause = 2.0;
-
-    //PID values
-    public static final double P_CLIMB = 1.0; //TODO: Get actual value
-    public static final double I_CLIMB = 0.00000000001; //TODO: Get actual value
-    public static final double D_CLIMB = 0.00000000001; //TODO: Get actual value
-  }
-
+   
   public static final class Constants_Shooter
   {
     public static final boolean shootInverted  = false; //TODO: Change if bad. Else remove.
     public static final boolean feedInverted  = false; //TODO: Change if bad. Else remove.
-    public static final double defaultShootSpeed = 0.5; //TODO: Get actual value
-    
+    public static final double rollSpeed = 0.5; //TODO: Get actual value
+    public static final double feedSpeed = 0.2; //TODO: Get actual value
+
+    //PID values
+    public static final double P_SHOOT = 1.0; //TODO: Get actual value
+    public static final double I_SHOOT = 0.00000000001; //TODO: Get actual value
+    public static final double D_SHOOT = 0.00000000001; //TODO: Get actual value
   }
 
   public static final class Constants_Carpet
   {
     public static final boolean carpetInverted  = false; //TODO: Change if bad. Else remove.
-    public static final double defaultRollSpeed = 0.5; //TODO: Get actual value
+    public static final double carpetSpeed = 0.3; //TODO: Get actual value
   }
 
   public static final class Constants_Auto 
@@ -145,7 +132,6 @@ public final class Constants {
 
 
     public static final HashMap<String, Command> AUTO_EVENT_MAP = new HashMap<>();
-
     public static final TrapezoidProfile.Constraints THETA_CONTROLLER_CONSTRAINTS = 
             new TrapezoidProfile.Constraints(
                     MAX_ANGULAR_SPEED_RPS,

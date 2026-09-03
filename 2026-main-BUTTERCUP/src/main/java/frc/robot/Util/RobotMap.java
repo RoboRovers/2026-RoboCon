@@ -11,13 +11,10 @@ public class RobotMap
 
     public static final class MAP_SUBSYSTEMS
     {
-        public static final int climbMotor = 8;
         public static final int carpetMotor = 5;
-        public static final int shootMotor = 6;
+        public static final int rollMotor = 6;
         public static final int feedMotor = 7;
-        public static final int intakeMotor = 5;
-        
-        
+        public static final int intakeMotor = 5;   
     }
 
     public static final class MAP_DRIVETRAIN
