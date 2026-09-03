@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Drive.Swerve;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.ShootFaster;
+import frc.robot.Commands.ShootSlower;
 import frc.robot.Util.Controllers;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -21,7 +24,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   public Controllers u_Controllers;
   public Swerve s_Swerve;
-  public Drive c_Drive;  
+  public Drive c_Drive;
+  public Shooter s_Shooter; 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -52,6 +56,10 @@ public class RobotContainer {
     u_Controllers.FO_toggle.toggleOnTrue(s_Swerve.fieldOrientedToggle());
     u_Controllers.zeroHeading.toggleOnTrue(Commands.runOnce(() -> s_Swerve.zeroHeading()));
     u_Controllers.resetWheels.onTrue(s_Swerve.resetWheels());
+
+    //Subsystem Bindings
+    u_Controllers.shootInc.onTrue(new ShootFaster(s_Shooter));
+    u_Controllers.shootDec.onTrue(new ShootSlower(s_Shooter));
   }
 
   /**
