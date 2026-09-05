@@ -5,6 +5,9 @@
 package frc.robot.Util;
 
 import java.util.HashMap;
+
+import com.ctre.phoenix6.signals.InvertedValue;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -95,7 +98,18 @@ public final class Constants {
     public static final double TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SEC = MAX_SPEED_METERS_PER_SEC/1.50;
     public static final double TELEDRIVE_MAX_ANGULAR_ACCEL_UNITS_PER_SEC = TELE_DRIVE_MAX_ACCELERATION_UNITS_PER_SEC/(trackWidth/2);
   }
-   
+  
+  public static final class Constants_Carpet
+  {
+    public static final boolean carpetInverted  = false; //TODO: Change if bad. Else remove.
+    public static final double carpetSpeed = 0.3; //TODO: Get actual value
+  }
+
+  public static final class Constants_Intake
+  {
+    public static final InvertedValue intakeInverted  = InvertedValue.Clockwise_Positive; //TODO: Change if bad. Else remove.
+    public static final double intakeSpeed = 0.5; //TODO: Get actual value
+  }
   public static final class Constants_Shooter
   {
     public static final boolean shootInverted  = false; //TODO: Change if bad. Else remove.
@@ -109,11 +123,7 @@ public final class Constants {
     public static final double D_SHOOT = 0.00000000001; //TODO: Get actual value
   }
 
-  public static final class Constants_Carpet
-  {
-    public static final boolean carpetInverted  = false; //TODO: Change if bad. Else remove.
-    public static final double carpetSpeed = 0.3; //TODO: Get actual value
-  }
+  
 
   public static final class Constants_Auto 
   {

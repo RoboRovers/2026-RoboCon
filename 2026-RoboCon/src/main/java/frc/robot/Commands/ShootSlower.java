@@ -17,4 +17,9 @@ public class ShootSlower extends Command {
         // Decrease the speed of the shooter
         s_Shoot.decreaseSpeed(decrement);
     }   
+
+    @Override
+    public void end(boolean interrupted) {
+        
+    }
 }

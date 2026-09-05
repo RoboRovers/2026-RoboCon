@@ -43,4 +43,9 @@ public class Shoot extends Command {
         delay.stop();
         delay.reset();
     } 
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
