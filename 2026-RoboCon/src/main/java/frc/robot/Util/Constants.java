@@ -68,15 +68,15 @@ public final class Constants {
 
     
     //TODO Test and input all module offsets which range from -1 -> 1, Make sure to read the TODO in the "MODULE" file for more info on zeroing the motors
-    public static final double FL_OFFSET = -0.255859; //0.011230;
-    public static final double FR_OFFSET = -0.333740; //0.159424;
-    public static final double BL_OFFSET = -0.116943; //0.385986;
-    public static final double BR_OFFSET = 0.340332; // 0.415527;
+    public static final double FL_OFFSET = -0.248779;
+    public static final double FR_OFFSET = -0.335449;
+    public static final double BL_OFFSET = -0.093262;
+    public static final double BR_OFFSET = 0.336670;
 
     //TODO Invert any motor to match controller output
-    public static final boolean FL_STEER_ENCODER_REVERSED = true;//TODO Make sure Counter-Clockwise rotation is considered positive rotation
-    public static final boolean FR_STEER_ENCODER_REVERSED = true;
-    public static final boolean BL_STEER_ENCODER_REVERSED = true;
+    public static final boolean FL_STEER_ENCODER_REVERSED = false;//TODO Make sure Counter-Clockwise rotation is considered positive rotation
+    public static final boolean FR_STEER_ENCODER_REVERSED = false;
+    public static final boolean BL_STEER_ENCODER_REVERSED = false;
     public static final boolean BR_STEER_ENCODER_REVERSED = false;
 
     public static final boolean FL_DRIVE_ENCODER_REVERSED = true;
@@ -84,10 +84,10 @@ public final class Constants {
     public static final boolean BL_DRIVE_ENCODER_REVERSED = true;
     public static final boolean BR_DRIVE_ENCODER_REVERSED = true;
 
-    public static final boolean FL_DRIVE_ABSOLUTE_ENCODER_REVERSED = false;//TODO Make sure Counter-Clockwise rotation is considered positive rotation
+    public static final boolean FL_DRIVE_ABSOLUTE_ENCODER_REVERSED = true;//TODO Make sure Counter-Clockwise rotation is considered positive rotation
     public static final boolean FR_DRIVE_ABSOLUTE_ENCODER_REVERSED = false;
     public static final boolean BL_DRIVE_ABSOLUTE_ENCODER_REVERSED = false;
-    public static final boolean BR_DRIVE_ABSOLUTE_ENCODER_REVERSED = false;
+    public static final boolean BR_DRIVE_ABSOLUTE_ENCODER_REVERSED = true;
 
     public static final double MAX_SPEED_METERS_PER_SEC = 6.949; //6.949 for Swerve X, 4.60248 for sd
     public static final double MAX_ANGULAR_SPEED_RPS = MAX_SPEED_METERS_PER_SEC/trackWidth;

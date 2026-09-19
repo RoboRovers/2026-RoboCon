@@ -9,7 +9,7 @@ public class Controllers {
     public CommandJoystick leftStick, rightStick;
     public CommandXboxController xbox;
     public Trigger zeroHeading, FO_toggle, resetWheels,
-            shootInc, shootDec;                    ;
+            shootInc, shootDec, shoot, intake;
 
     public Controllers() 
     {

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.Subsystems.Carpet;
+import frc.robot.Subsystems.Intaker;
 import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Drive.Swerve;
 import frc.robot.Commands.Drive;
@@ -26,6 +28,8 @@ public class RobotContainer {
   public Swerve s_Swerve;
   public Drive c_Drive;
   public Shooter s_Shooter; 
+  public Intaker s_Intaker;
+  public Carpet s_Carpet;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,6 +52,9 @@ public class RobotContainer {
   private void robotFiles() {
     u_Controllers = new Controllers();
     s_Swerve = new Swerve();
+    s_Shooter = new Shooter();
+    s_Intaker = new Intaker();
+    s_Carpet = new Carpet();
     c_Drive = new Drive(s_Swerve, u_Controllers.leftStick, u_Controllers.rightStick);
   }
 
